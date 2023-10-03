@@ -1,0 +1,1 @@
+<a data-toggle="tooltip" data-original-title="Edit" href="<?php echo base_url('admin/articulo/formImagArt/'.$articulo['id']) ?>"> <i class="fa fa-camera text-success m-r-10"></i></a>

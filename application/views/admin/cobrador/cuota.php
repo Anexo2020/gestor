@@ -1,0 +1,1 @@
+<div><span><?php print_r($cuotas); ?></span></div>
