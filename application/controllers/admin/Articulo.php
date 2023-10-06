@@ -121,6 +121,12 @@ class Articulo extends CI_Controller {
             $this->load->view('admin/index',$data);    
     }
 
+    public function listaAllProduct(){
+            $data['articulos'] = $this->articulo_model->all_product();
+            $data['main_content'] = $this->load->view('admin/articulos/lista_product',$data, TRUE);
+            $this->load->view('admin/index',$data);    
+    }
+
     public function listavendedores(){
         $data['imagenes'] = $this->articulo_model->get_art_imagen();
         $data['articulos'] = $this->articulo_model->listavend();
@@ -206,6 +212,22 @@ class Articulo extends CI_Controller {
                 'largo' => $_POST['largo'],
                 'alto' => $_POST['alto'],
                 'descripcion' => strtoupper($_POST['descripcion']),
+            );
+            $data = $this->security->xss_clean($data);
+
+        $this->articulo_model->edit_option($data,$id);
+        
+        $data['articulos'] = $this->articulo_model->all_product();
+        $this->load->view('admin/articulos/lista_product', $data);
+        }
+
+    }
+
+    public function modificarPp(){
+        if($_POST)
+        {
+            $id = $_POST['id'];
+             $data = array(
                 'costo' => $_POST['costo'],
                 'iva' => $_POST['iva'],
                 'markm' => $_POST['markm'],
@@ -262,7 +284,7 @@ class Articulo extends CI_Controller {
             );
             $data = $this->security->xss_clean($data);
             $this->articulo_model->insert($data);
-            $data['articulos'] = $this->articulo_model->all_list_art();
+            $data['articulos'] = $this->articulo_model->all_product();
             $this->load->view('admin/articulos/lista_art', $data);
 
         }
